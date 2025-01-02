@@ -141,7 +141,7 @@ export async function loginBarreNoire() {
   try {
     const token = localStorage.getItem("authToken");
 
-    if (token) {
+    if (token && !window.location.href.includes("Modale.html")) {
       const barreNoire = document.createElement("div");
       barreNoire.id = "barreNoireid";
       barreNoire.innerHTML = `
@@ -156,3 +156,30 @@ export async function loginBarreNoire() {
       console.error("Erreur lors de l'ajout de la barre noire :", error);
     }
   }
+
+export async function displayWorksModale(works) {
+
+    // Sélection de la galerie dans la section portfolio
+    const gallerymodale = document.querySelector('#sectionmodale .gallery-modale');
+
+    // S'assurer que la galerie est vide avant d'ajouter les éléments
+    gallerymodale.innerHTML='';
+
+    // Parcourir chaque work récupéré depuis l'API
+    works.forEach(work => {
+
+        // Création de la balise figure
+        const figure = document.createElement('figure');
+
+        // Création de l'image pour le work
+        
+        const image = document.createElement('img');
+        image.src = work.imageUrl;    
+
+        // Ajouter l'image et la légende à la balise figure
+        figure.appendChild(image);
+
+        // Ajouter la figure à la galerie
+        gallerymodale.appendChild(figure);
+    });
+}
